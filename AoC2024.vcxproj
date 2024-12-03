@@ -127,12 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="day1-2.cpp" />
+    <ClCompile Include="day3-2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="day1.txt" />
     <Text Include="day2-test.txt" />
     <Text Include="day2.txt" />
+    <Text Include="day3-test.txt" />
+    <Text Include="day3.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="day1-test.txt" />
