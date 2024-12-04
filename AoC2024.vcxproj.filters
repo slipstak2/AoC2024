@@ -15,11 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="day3-2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="day2.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -35,10 +30,17 @@
     <Text Include="day3.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="day4-test.txt" />
+    <Text Include="day4.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="day1-test.txt">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="day4-2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

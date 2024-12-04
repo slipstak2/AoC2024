@@ -127,17 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="day3-2.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="day1.txt" />
     <Text Include="day2-test.txt" />
     <Text Include="day2.txt" />
     <Text Include="day3-test.txt" />
     <Text Include="day3.txt" />
+    <Text Include="day4-test.txt" />
+    <Text Include="day4.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="day1-test.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="day4-2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
