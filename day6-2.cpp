@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <string_view>
 #include <cassert>
+#include <chrono>
 
 using namespace std;
 
@@ -70,8 +71,27 @@ bool go(int row, int col) {
     return true;
 }
 
+std::chrono::time_point<std::chrono::steady_clock> Now() {
+    return std::chrono::steady_clock::now();
+}
+
+std::string TimeGetStr(int64_t nano) {
+    static const std::string format[4] = { "%.f ns", "%.f us", "%.f ms", "%.3f s" };
+    int pos = 0;
+    double dur = (double)nano;
+    while (dur >= 1000 && pos < 3) {
+        dur /= 1000;
+        pos++;
+    }
+
+    char buf[200];
+    sprintf_s(buf, format[pos].data(), dur);
+    return buf;
+}
+
 int main()
 {
+    std::chrono::time_point<std::chrono::steady_clock> start = Now();
     freopen(inputFile, "r", stdin);
 
     string line;
@@ -117,6 +137,10 @@ int main()
     assert(result == 6);
 #endif
     cout << result << endl;
+
+    const std::chrono::duration<int64_t, std::nano> diff = Now() - start;
+
+    cout << TimeGetStr(diff.count());
     return 0;
 
 }
