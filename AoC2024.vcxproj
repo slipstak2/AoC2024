@@ -134,14 +134,14 @@
     <Text Include="day2.txt" />
     <Text Include="day3-test.txt" />
     <Text Include="day3.txt" />
-    <Text Include="day6-test.txt" />
-    <Text Include="day6.txt" />
+    <Text Include="day9-test.txt" />
+    <Text Include="day9.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="day1-test.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="day6-2.cpp" />
+    <ClCompile Include="day9-2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
