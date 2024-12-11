@@ -30,8 +30,8 @@
     <Text Include="day3.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="day11.txt" />
-    <Text Include="day11-test.txt" />
+    <Text Include="day7.txt" />
+    <Text Include="day7-test.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="day1-test.txt">
@@ -39,7 +39,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="day11-2.cpp">
+    <ClCompile Include="day7-2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
