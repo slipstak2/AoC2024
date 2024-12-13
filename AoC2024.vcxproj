@@ -141,7 +141,7 @@
     <None Include="day1-test.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="day13-1.cpp" />
+    <ClCompile Include="day13-2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
