@@ -129,9 +129,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="day16-test.txt" />
     <Text Include="day1.txt" />
-    <Text Include="day15-test.txt" />
-    <Text Include="day15.txt" />
+    <Text Include="day16.txt" />
     <Text Include="day2-test.txt" />
     <Text Include="day2.txt" />
     <Text Include="day3-test.txt" />
@@ -141,7 +141,7 @@
     <None Include="day1-test.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="day15-2.cpp" />
+    <ClCompile Include="day16-1-2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
