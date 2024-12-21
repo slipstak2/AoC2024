@@ -56,6 +56,8 @@ const char FIN = 'E';
 const char EMPTY = '.';
 const char BORDER = '#';
 
+const int MAX_VAL = 1e9;
+
 int ROWS;
 int COLS;
 
@@ -76,7 +78,7 @@ bool operator == (const point& lhs, const point& rhs) {
     return tie(lhs.row, lhs.col) == tie(rhs.row, rhs.col);
 }
 
-bool operator < (const point & lhs, const point & rhs) {
+bool operator < (const point& lhs, const point& rhs) {
     return tie(lhs.row, lhs.col) < tie(rhs.row, rhs.col);
 }
 
@@ -91,7 +93,6 @@ point operator + (const point& lhs, const point& rhs) {
 point operator - (const point& lhs, const point& rhs) {
     return point(lhs.row - rhs.row, lhs.col - rhs.col);
 }
-
 
 const point UP(-1, 0);
 const point DOWN(1, 0);
@@ -131,9 +132,9 @@ int GET_DIST_FIN(point p) {
     return distFIN[p.row][p.col];
 }
 
-int bfs(point start, point finish, vector<vector<int>> &dist) {
+int bfs(point start, point finish, vector<vector<int>>& dist) {
     queue<point> q;
-    dist.resize(ROWS, vector<int>(COLS, -1));
+    dist.resize(ROWS, vector<int>(COLS, MAX_VAL));
 
     SETD(start, 0);
     q.push(start);
@@ -143,14 +144,52 @@ int bfs(point start, point finish, vector<vector<int>> &dist) {
         q.pop();
         for (int i = 0; i < 4; ++i) {
             point nxt = cur + delta[i];
-            if (GET(nxt) == EMPTY && GETD(nxt) == -1) {
+            if (GET(nxt) == EMPTY && GETD(nxt) == MAX_VAL) {
                 SETD(nxt, GETD(cur) + 1);
                 q.push(nxt);
             }
         }
     }
-
     return GETD(finish);
+}
+
+map<point, vector<edge>> teleport;
+
+const int MAX_TELEPORT = 20;
+
+void bfs_teleport(point start) {
+    queue<point> q;
+    vector<vector<int>> dist(ROWS, vector<int>(COLS, MAX_VAL));
+
+    SETD(start, 0);
+    q.push(start);
+
+    while (!q.empty()) {
+        point cur = q.front();
+        q.pop();
+        if (cur != start) {
+            if (GET(cur) == EMPTY) {
+                int shortest_cur_dist = GET_DIST_BEG(cur) - GET_DIST_BEG(start);
+                if (GETD(cur) < shortest_cur_dist) {
+                    teleport[start].push_back(edge(cur, GETD(cur)));
+                }
+            }
+        }
+        for (int i = 0; i < 4; ++i) {
+            point nxt = cur + delta[i];
+            if (!correct(nxt)) {
+                continue;
+            }
+            if (GETD(nxt) != MAX_VAL) {
+                continue;
+            }
+            int nxt_dist = GETD(cur) + 1;
+            if (nxt_dist <= MAX_TELEPORT) {
+                SETD(nxt, nxt_dist);
+                q.push(nxt);
+            }
+        }
+    }
 }
 
 int main()
@@ -187,40 +226,38 @@ int main()
     assert(targetBeg == targetFin);
     int target = targetBeg;
 
-    map<int, int> res;
     for (int row = 1; row < ROWS - 1; ++row) {
         for (int col = 1; col < COLS - 1; ++col) {
-            char c = f[row][col];
-            if (c == BORDER) {
-                point cur(row, col);
-                for (int i = 0; i < 4; ++i) {
-                    point nxt = cur + delta[i];
-                    point prv = cur - delta[i];
-
-                    if (GET(nxt) == EMPTY && GET(prv) == EMPTY) {
-                        int x = GET_DIST_BEG(prv);
-                        int y = GET_DIST_FIN(nxt);
-
-                        int dist = x + y + 2;
-
-                        res[target - dist]++;
-                    }
-                }
+            point cur(row, col);
+            if (GET(cur) == EMPTY) {
+                bfs_teleport(cur);
             }
+        }
+    }
+
+
+    map<int, int> res;
+    for (auto& [teleportBeg, neib] : teleport) {
+        for (edge& teleportEdge: neib) {
+            point teleportFin = teleportEdge.nxt;
+
+            int x = GET_DIST_BEG(teleportBeg);
+            int y = GET_DIST_FIN(teleportFin);
+
+            int dist = x + y + teleportEdge.value;
+            res[target - dist]++;
         }
     }
 
     int result = 0;
     for (auto [pico, cnt] : res) {
-        if (pico > 0) {
+        if (pico >= 50) {
             //cout << cnt << " cheats save " << pico << " picoseconds" << endl;
         }
         if (pico >= 100) {
             result += cnt;
         }
     }
-
-
 
 #if defined(TEST)
     EXPECT_EQ<decltype(result)>(result, 0);
